@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Dear Diary",
-    "slug": "deardiary",
+    "name": "Webmote",
+    "slug": "webmote",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -10,9 +10,9 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/remote.png",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/remote.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
