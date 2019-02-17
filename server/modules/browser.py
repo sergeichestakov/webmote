@@ -54,7 +54,11 @@ class Browser:
             self.linkIndex = (self.linkIndex + 1) % len(links)
             self.highlightLink(links)
         elif message == "enter":
-            pass
+            links = self.browser.find_elements_by_tag_name('a')
+            if self.linkIndex < len(links):
+                curr_href = links[self.linkIndex].get_attribute('href')
+                if curr_href:
+                    self.browser.get(curr_href)
 
     def highlightLink(self, links):
         link = links[self.linkIndex]
