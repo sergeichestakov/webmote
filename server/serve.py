@@ -16,6 +16,10 @@ class BrowserSocket(WebSocket):
             browser.move(message)
         elif type == "search":
             browser.search(message)
+        elif type == "refresh":
+            browser.refresh()
+        elif type == "power":
+            browser.power()
 
     def handleConnected(self):
         print(self.address, 'connected')

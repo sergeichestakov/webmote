@@ -11,6 +11,7 @@ class Browser:
         self.browser = webdriver.Firefox()
         self.browser.maximize_window()
         self.populate()
+        self.on = True
 
     def populate(self):
         main_window = self.browser.current_window_handle
@@ -47,6 +48,19 @@ class Browser:
 
     def search(self, name):
         self.browser.execute_script(f"window.location.href = 'https://google.com/search?q={name}'")
+
+    def refresh(self):
+        self.browser.refresh()
+
+    def power(self):
+        if self.on:
+            self.close()
+        else:
+            self.browser = webdriver.Firefox()
+            self.browser.maximize_window()
+            self.populate()
+
+        self.on = not self.on
 
     def move(self, direction):
         if direction in ["left", "right"]:
