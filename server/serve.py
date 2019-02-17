@@ -15,7 +15,7 @@ class BrowserSocket(WebSocket):
         if type == "direction":
             browser.move(message)
         elif type == "search":
-            browser.search(message)
+            self.handleSearch(message)
         elif type == "refresh":
             browser.refresh()
         elif type == "power":
@@ -24,6 +24,14 @@ class BrowserSocket(WebSocket):
             browser.history(message) 
         elif type == "link":
             browser.link(message) 
+
+    def handleSearch(self, message):
+        split = message.split(':')
+        if len(split) > 1 and split[0] == 'goto':
+            url = ''.join(split[1:])
+            browser.openWebsite(url)
+        else:
+            browser.search(message)
 
     def handleConnected(self):
         print(self.address, 'connected')
