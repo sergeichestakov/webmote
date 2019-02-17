@@ -49,7 +49,12 @@ class Browser:
     def search(self, name):
         self.browser.execute_script(f"window.location.href = 'https://google.com/search?q={name}'")
 
-    '''Facial Gestures implemented as Selenium actions'''
+    def move(self, direction):
+        if direction in ["left", "right"]:
+            self.switchTabs(direction)
+        elif direction in ["up", "down"]:
+            self.scroll(direction)
+
     def switchTabs(self, direction):
         tabs = self.browser.window_handles
         currTab = self.browser.current_window_handle
