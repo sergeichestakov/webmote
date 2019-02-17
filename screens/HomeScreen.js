@@ -15,6 +15,11 @@ import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
 
 const buttonSize = 60;
+const URL = "ws://10.19.188.100:8000"
+const ws = new WebSocket(URL);
+ws.onopen = () => {
+  ws.send("Opened");
+}
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -42,6 +47,7 @@ export default class HomeScreen extends React.Component {
 
   onPress(direction) {
     console.log('Pressed ' + direction);
+    ws.send(direction);
   }
   
 }
