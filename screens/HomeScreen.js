@@ -51,28 +51,28 @@ export default class HomeScreen extends React.Component {
             <View style={styles.buttonContainer}>
               <View style={styles.circle}>
                 <View style={{flex: 3, flexDirection: 'row', justifyContent: 'space-between'}}>
-                  <TouchableOpacity style={{paddingTop: 20, margin: 20}} onPress={() => this.power()}>
+                  <TouchableOpacity style={{paddingTop: 20, margin: 20}} onPress={() => this.sendMessage("power")}>
                     <Icon name='poweroff' color='crimson' size={buttonSize / 1.35} type='antdesign'/> 
                   </TouchableOpacity>
-                  <TouchableOpacity style={{paddingTop: 15, margin: 20}} onPress={() => this.refresh()}>
+                  <TouchableOpacity style={{paddingTop: 15, margin: 20}} onPress={() => this.sendMessage("refresh")}>
                     <Icon name='refresh' color='silver' size={buttonSize} type='material'/> 
                   </TouchableOpacity>
                 </View>
                 <View style={styles.arrowRow}>
-                  <TouchableOpacity style={styles.arrow} onPress={() => this.onPress('up')}>
+                  <TouchableOpacity style={styles.arrow} onPress={() => this.sendMessage("direction", "up")}>
                     <Icon name='upcircle' size={buttonSize} type='antdesign'/> 
                   </TouchableOpacity>
                 </View>
                 <View style={styles.arrowRow}>
-                  <TouchableOpacity style={styles.arrow} onPress={() => this.onPress('left')}>
+                  <TouchableOpacity style={styles.arrow} onPress={() => this.sendMessage("direction", "left")}>
                     <Icon name='leftcircle' size={buttonSize} type='antdesign'/> 
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.arrow} onPress={() => this.onPress('right')}>
+                  <TouchableOpacity style={styles.arrow} onPress={() => this.sendMessage("direction", "right")}>
                     <Icon name='rightcircle' size={buttonSize} type='antdesign'/> 
                   </TouchableOpacity>
                 </View>
                 <View style={styles.arrowRow}>
-                  <TouchableOpacity style={styles.arrow} onPress={() => this.onPress('down')}>
+                  <TouchableOpacity style={styles.arrow} onPress={() => this.sendMessage("direction", "down")}>
                     <Icon name='downcircle' size={buttonSize} type='antdesign'/> 
                   </TouchableOpacity>
                 </View>
@@ -83,23 +83,13 @@ export default class HomeScreen extends React.Component {
     );
   }
 
-  power() {
-    console.log('Power');
-    const object = {type: "power", message: null};
+
+  sendMessage(type, message) {
+    console.log(type, message);
+    if(message === undefined) message = null
+    const object = {type: type, message: message};
     ws.send(JSON.stringify(object));
   }
-
-  refresh() {
-    console.log('Refresh');
-    const object = {type: "refresh", message: null};
-    ws.send(JSON.stringify(object));
-  }
-
-  onPress(direction) {
-    console.log('Pressed ' + direction);
-    const object = {type: "direction", message: direction};
-    ws.send(JSON.stringify(object));
-  };
 
   updateSearch(search) {
     this.setState({ search });
@@ -107,12 +97,10 @@ export default class HomeScreen extends React.Component {
 
   sendResult(search) {
     this.setState({ search: "" });
-
-    console.log('Sent ' + search);
-    const object = {type: "search", message: search};
-    ws.send(JSON.stringify(object));
+    this.sendMessage("search", search);
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
