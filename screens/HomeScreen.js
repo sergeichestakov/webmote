@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Image,
   Platform,
@@ -9,63 +8,54 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import { Button } from 'react-native-elements';
+import React from 'react';
+import { Icon } from 'react-native-elements';
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
+const buttonSize = 60;
+
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    header: null,
+    title: 'Home',
   };
 
   render() {
     return (
-      <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          
-          <View style={styles.getStartedContainer}>
-            
-          </View>
-        </ScrollView>
-
-          <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.recordButton} 
-                onPressIn={this.startRecording}
-                onPressOut={this.finishRecording}>
-              <Text> Record </Text>
+        <View style={styles.container}>
+            <TouchableOpacity onPress={() => this.onPress('up')}>
+              <Icon name='upcircle' style={styles.arrow} size={buttonSize} type='antdesign'/> 
             </TouchableOpacity>
-          </View>
-      </View>
+            <TouchableOpacity onPress={() => this.onPress('left')}>
+              <Icon name='leftcircle' style={styles.arrow} size={buttonSize} type='antdesign'/> 
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.onPress('right')}>
+              <Icon name='rightcircle' style={styles.arrow} size={buttonSize} type='antdesign'/> 
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.onPress('down')}>
+              <Icon name='downcircle' style={styles.arrow} size={buttonSize} type='antdesign'/> 
+            </TouchableOpacity>
+        </View>
     );
   }
 
-  startRecording() {
-    console.log('start');
+  onPress(direction) {
+    console.log('Pressed ' + direction);
   }
-  finishRecording() {
-    console.log('end');
-  }
+  
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
-  buttonContainer: {
-    justifyContent: 'flex-end',
-    marginBottom: 30,
-    paddingHorizontal: 50,
-  },
-  recordButton: {
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: 24,
-    padding: 10,
-    height: 45,
-    borderRadius: 25,
-    backgroundColor: '#2196F3',
+    backgroundColor: '#fff',
+  },
+  arrow: {
+    margin: 10
   },
   navigationFilename: {
     marginTop: 5,
