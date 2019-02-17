@@ -36,7 +36,7 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <View style={styles.searchContainer}>
           <SearchBar
-              placeholder="Search the Internet"
+              placeholder="Search the Web"
               onChangeText={this.updateSearch}
               platform="default"
               round
@@ -50,31 +50,31 @@ export default class HomeScreen extends React.Component {
               <View style={styles.circle}>
                 <View style={{flex: 2, flexDirection: 'row', justifyContent: 'space-between'}}>
                   <TouchableOpacity style={{paddingTop: 20, margin: 20}} onPress={() => this.sendMessage("power")}>
-                    <Icon name='poweroff' color='crimson' size={buttonSize / 1.35} type='antdesign'/> 
+                    <Icon name='poweroff' color='crimson' size={buttonSize / 1.2} type='antdesign'/> 
                   </TouchableOpacity>
                   <TouchableOpacity style={{paddingTop: 15, margin: 20}} onPress={() => this.sendMessage("refresh")}>
-                    <Icon name='refresh' color='silver' size={buttonSize} type='material'/> 
+                    <Icon name='refresh' color='silver' size={buttonSize * 1.1} type='material'/> 
                   </TouchableOpacity>
                 </View>
 
-				<View style={{flex: 2, flexDirection: 'row', justifyContent: 'space-between'}}>
+				        <View style={{flex: 2, flexDirection: 'row', justifyContent: 'space-between'}}>
                   <TouchableOpacity style={{paddingTop: 10, margin: 15}} onPress={() => this.sendMessage("history", "back")}>
-                    <Icon name='stepbackward' color='black' size={buttonSize / 1.35} type='antdesign'/> 
+                    <Icon name='stepbackward' color='black' size={buttonSize / 1.2} type='antdesign'/> 
                   </TouchableOpacity>
                   <TouchableOpacity style={{paddingTop: 10, margin: 15}} onPress={() => this.sendMessage("history", "forward")}>
-                    <Icon name='stepforward' color='black' size={buttonSize / 1.35} type='antdesign'/> 
+                    <Icon name='stepforward' color='black' size={buttonSize / 1.2} type='antdesign'/> 
                   </TouchableOpacity>
                 </View>
 
-                <View style={{flex: 2, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
                   <TouchableOpacity style={{paddingTop: 10, margin: 7}} onPress={() => this.sendMessage("link", "down")}>
-                    <Icon name='caretdown' color='black' size={buttonSize / 1.35} type='antdesign'/> 
+                    <Icon name='caretdown' color='black' size={buttonSize / 1.2} type='antdesign'/> 
                   </TouchableOpacity>
                   <TouchableOpacity style={{paddingTop: 10, margin: 7}} onPress={() => this.sendMessage("link", "up")}>
-                    <Icon name='caretup' color='black' size={buttonSize / 1.35} type='antdesign'/> 
+                    <Icon name='caretup' color='black' size={buttonSize / 1.2} type='antdesign'/> 
                   </TouchableOpacity>
                   <TouchableOpacity style={{paddingTop: 10, margin: 7}} onPress={() => this.sendMessage("link", "enter")}>
-                    <Icon name="enter" color='black' size={buttonSize / 1.35} type='antdesign'/> 
+                    <Icon name="enter" color='black' size={buttonSize / 1.2} type='antdesign'/> 
                   </TouchableOpacity>
                 </View>
 
@@ -147,8 +147,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   circle: {
-    width: 225,
-    height: 400,
+    width: 250,
+    height: 500,
     borderRadius: 80/2,
     flexDirection: 'column',
     backgroundColor: 'grey',
