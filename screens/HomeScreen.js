@@ -52,10 +52,10 @@ export default class HomeScreen extends React.Component {
               <View style={styles.circle}>
                 <View style={{flex: 3, flexDirection: 'row', justifyContent: 'space-between'}}>
                   <TouchableOpacity style={{paddingTop: 20, margin: 20}} onPress={() => this.power()}>
-                    <Icon name='poweroff' size={buttonSize / 1.35} type='antdesign'/> 
+                    <Icon name='poweroff' color='crimson' size={buttonSize / 1.35} type='antdesign'/> 
                   </TouchableOpacity>
                   <TouchableOpacity style={{paddingTop: 15, margin: 20}} onPress={() => this.refresh()}>
-                    <Icon name='refresh' size={buttonSize} type='material'/> 
+                    <Icon name='refresh' color='silver' size={buttonSize} type='material'/> 
                   </TouchableOpacity>
                 </View>
                 <View style={styles.arrowRow}>
