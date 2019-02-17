@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  Vibration,
   Keyboard,
   View,
 } from 'react-native';
@@ -66,13 +67,13 @@ export default class HomeScreen extends React.Component {
                 </View>
 
                 <View style={{flex: 2, flexDirection: 'row', justifyContent: 'space-between'}}>
-                  <TouchableOpacity style={{paddingTop: 10, margin: 5}} onPress={() => this.sendMessage("link", "down")}>
+                  <TouchableOpacity style={{paddingTop: 10, margin: 7}} onPress={() => this.sendMessage("link", "down")}>
                     <Icon name='caretdown' color='black' size={buttonSize / 1.35} type='antdesign'/> 
                   </TouchableOpacity>
-                  <TouchableOpacity style={{paddingTop: 10, margin: 5}} onPress={() => this.sendMessage("link", "up")}>
+                  <TouchableOpacity style={{paddingTop: 10, margin: 7}} onPress={() => this.sendMessage("link", "up")}>
                     <Icon name='caretup' color='black' size={buttonSize / 1.35} type='antdesign'/> 
                   </TouchableOpacity>
-                  <TouchableOpacity style={{paddingTop: 10, margin: 5}} onPress={() => this.sendMessage("link", "enter")}>
+                  <TouchableOpacity style={{paddingTop: 10, margin: 7}} onPress={() => this.sendMessage("link", "enter")}>
                     <Icon name="enter" color='black' size={buttonSize / 1.35} type='antdesign'/> 
                   </TouchableOpacity>
                 </View>
@@ -105,6 +106,7 @@ export default class HomeScreen extends React.Component {
 
   sendMessage(type, message) {
     console.log(type, message);
+    Vibration.vibrate(20);
     if(message === undefined) message = null
     const object = {type: type, message: message};
     ws.send(JSON.stringify(object));
