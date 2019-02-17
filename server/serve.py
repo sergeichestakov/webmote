@@ -27,7 +27,7 @@ class BrowserSocket(WebSocket):
 
     def handleSearch(self, message):
         split = message.split(':')
-        if len(split) > 1 and split[0] == 'goto':
+        if len(split) > 1 and split[0].lower() == 'goto':
             url = ''.join(split[1:])
             browser.openWebsite(url)
         else:
