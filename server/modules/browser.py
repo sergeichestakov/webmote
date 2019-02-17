@@ -33,7 +33,6 @@ class Browser:
             sleep(2)
             self.switchTabs('left')
 
-    '''Voice Commands implemented as javascript executed in the browser'''
     def openTab(self):
         self.browser.execute_script("window.open('https://google.com')")
 
@@ -44,7 +43,7 @@ class Browser:
         self.browser.execute_script("window.history.back();")
 
     def openWebsite(self, name):
-        self.browser.execute_script("window.location.href = https://'" + name + ".com/'")
+        self.browser.execute_script(f"window.location.href = https://{name}")
 
     def search(self, name):
         self.browser.execute_script(f"window.location.href = 'https://google.com/search?q={name}'")

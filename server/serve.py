@@ -1,3 +1,4 @@
+import json
 from modules.browser import Browser
 from SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 
@@ -6,9 +7,15 @@ browser = Browser()
 class BrowserSocket(WebSocket):
 
     def handleMessage(self):
-        direction = self.data 
-        print(direction)
-        browser.move(direction)
+        data = json.loads(self.data)
+        type = data['type']
+        message = data['message']
+        print(data)
+
+        if type == "direction":
+            browser.move(message)
+        elif type == "search":
+            browser.search(message)
 
     def handleConnected(self):
         print(self.address, 'connected')
