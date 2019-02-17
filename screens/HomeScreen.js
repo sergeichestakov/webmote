@@ -50,7 +50,7 @@ export default class HomeScreen extends React.Component {
         </View>
             <View style={styles.buttonContainer}>
               <View style={styles.circle}>
-                <View style={{flex: 3, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{flex: 2, flexDirection: 'row', justifyContent: 'space-between'}}>
                   <TouchableOpacity style={{paddingTop: 20, margin: 20}} onPress={() => this.sendMessage("power")}>
                     <Icon name='poweroff' color='crimson' size={buttonSize / 1.35} type='antdesign'/> 
                   </TouchableOpacity>
@@ -58,6 +58,28 @@ export default class HomeScreen extends React.Component {
                     <Icon name='refresh' color='silver' size={buttonSize} type='material'/> 
                   </TouchableOpacity>
                 </View>
+
+				<View style={{flex: 2, flexDirection: 'row', justifyContent: 'space-between'}}>
+                  <TouchableOpacity style={{paddingTop: 10, margin: 15}} onPress={() => this.sendMessage("history", "back")}>
+                    <Icon name='stepbackward' color='black' size={buttonSize / 1.35} type='antdesign'/> 
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{paddingTop: 10, margin: 15}} onPress={() => this.sendMessage("history", "forward")}>
+                    <Icon name='stepforward' color='black' size={buttonSize / 1.35} type='antdesign'/> 
+                  </TouchableOpacity>
+                </View>
+
+                <View style={{flex: 2, flexDirection: 'row', justifyContent: 'space-between'}}>
+                  <TouchableOpacity style={{paddingTop: 10, margin: 5}} onPress={() => this.sendMessage("link", "down")}>
+                    <Icon name='caretdown' color='black' size={buttonSize / 1.35} type='antdesign'/> 
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{paddingTop: 10, margin: 5}} onPress={() => this.sendMessage("link", "up")}>
+                    <Icon name='caretup' color='black' size={buttonSize / 1.35} type='antdesign'/> 
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{paddingTop: 10, margin: 5}} onPress={() => this.sendMessage("link", "enter")}>
+                    <Icon name="enter" color='black' size={buttonSize / 1.35} type='antdesign'/> 
+                  </TouchableOpacity>
+                </View>
+
                 <View style={styles.arrowRow}>
                   <TouchableOpacity style={styles.arrow} onPress={() => this.sendMessage("direction", "up")}>
                     <Icon name='upcircle' size={buttonSize} type='antdesign'/> 
@@ -100,7 +122,6 @@ export default class HomeScreen extends React.Component {
     this.sendMessage("search", search);
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {
