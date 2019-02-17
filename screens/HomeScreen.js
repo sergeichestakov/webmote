@@ -57,20 +57,28 @@ export default class HomeScreen extends React.Component {
             <Icon name="search" size={30} type='material' />
           </TouchableOpacity>
         </View>
-        <View style={styles.flexContainer}>
-          
-            <TouchableOpacity onPress={() => this.onPress('up')}>
-              <Icon name='upcircle' style={styles.arrow} size={buttonSize} type='antdesign'/> 
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.onPress('left')}>
-              <Icon name='leftcircle' style={styles.arrow} size={buttonSize} type='antdesign'/> 
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.onPress('right')}>
-              <Icon name='rightcircle' style={styles.arrow} size={buttonSize} type='antdesign'/> 
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.onPress('down')}>
-              <Icon name='downcircle' style={styles.arrow} size={buttonSize} type='antdesign'/> 
-            </TouchableOpacity>
+          <View style={styles.buttonContainer}>
+              <View style={styles.circle}>
+                <View style={styles.arrowRow}>
+                  <TouchableOpacity style={styles.arrow} onPress={() => this.onPress('up')}>
+                  <Icon name='upcircle' size={buttonSize} type='antdesign'/> 
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.arrowRow}>
+                  <TouchableOpacity style={styles.arrow} onPress={() => this.onPress('left')}>
+                    <Icon name='leftcircle' size={buttonSize} type='antdesign'/> 
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.arrow} onPress={() => this.onPress('right')}>
+                    <Icon name='rightcircle' size={buttonSize} type='antdesign'/> 
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.arrowRow}>
+                  <TouchableOpacity style={styles.arrow} onPress={() => this.onPress('down')}>
+                    <Icon name='downcircle' size={buttonSize} type='antdesign'/> 
+                  </TouchableOpacity>
+                </View>
+                  <View style={{flex: 2}}></View>
+            </View>
         </View>
       </View>
     );
@@ -112,28 +120,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row'
   },
-  flexContainer: {
+  buttonContainer: {
     flex:9,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
   },
-  arrow: {
-    margin: 10
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
+  circle: {
+    width: 200,
+    height: 300,
+    borderRadius: 80/2,
+    flexDirection: 'column',
+    backgroundColor: 'grey',
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  helpLink: {
-    paddingVertical: 15,
+  arrowRow: {
+    height: 75,
+    flex: 1,
+    justifyContent: 'space-between',
+    flexDirection: 'row'
   },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
+  arrow: {
+    margin: 10,
+    padding: 10,
   },
 });
