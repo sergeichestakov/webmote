@@ -12,6 +12,7 @@ class Browser:
         self.browser.maximize_window()
         self.populate()
         self.linkIndex = 0
+        self.links = None
         self.prevLinkIndex = None
         self.prevStyle = None
         self.on = True
@@ -41,12 +42,12 @@ class Browser:
         self.browser.execute_script("window.open('https://google.com')")
 
     def history(self, direction):
-        self.resetLinkInfo()
+        self.resetLinkInfo(False)
         if direction in ["forward", "back"]:
             self.browser.execute_script(f"window.history.{direction}();")
 
     def link(self, message):
-        links = self.browser.find_elements_by_tag_name('a')
+        links = self.links if self.links else self.browser.find_elements_by_tag_name('a')
         if message == "up":
             self.linkIndex = (self.linkIndex - 1) if self.linkIndex > 0 else len(links) - 1
             self.highlightLink(links)
@@ -54,11 +55,11 @@ class Browser:
             self.linkIndex = (self.linkIndex + 1) % len(links)
             self.highlightLink(links)
         elif message == "enter":
-            links = self.browser.find_elements_by_tag_name('a')
             if self.linkIndex < len(links):
                 curr_href = links[self.linkIndex].get_attribute('href')
                 if curr_href:
                     self.browser.get(curr_href)
+                    self.resetLinkInfo(False)
 
     def highlightLink(self, links):
         link = links[self.linkIndex]
@@ -74,25 +75,26 @@ class Browser:
 
         self.browser.execute_script("arguments[0].scrollIntoView(true)", link)
         self.browser.execute_script("arguments[0].setAttribute('style', arguments[1])", link, style) 
-    def openWebsite(self, name):
-        self.browser.execute_script(f"window.location.href = https://{name}")
+    def openWebsite(self, url):
+        self.browser.execute_script(f"window.location.href = 'https://{url}'")
 
-    def resetLinkInfo(self):
-        if self.prevLinkIndex is not None:
-            links = self.browser.find_elements_by_tag_name('a')
+    def resetLinkInfo(self, check=True):
+        if check and self.prevLinkIndex is not None:
+            links = self.links
             prevLink = links[self.prevLinkIndex]
             self.browser.execute_script("arguments[0].setAttribute('style', arguments[1])", prevLink, self.prevStyle) 
 
         self.linkIndex = 0
         self.prevLinkIndex = None
+        self.links = None
         self.prevStyle = None
 
     def search(self, name):
         self.browser.execute_script(f"window.location.href = 'https://google.com/search?q={name}'")
 
     def refresh(self):
-        self.resetLinkInfo()
         self.browser.refresh()
+        self.resetLinkInfo(False)
 
     def power(self):
         if self.on:
