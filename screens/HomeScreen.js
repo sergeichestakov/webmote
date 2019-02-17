@@ -50,7 +50,14 @@ export default class HomeScreen extends React.Component {
         </View>
             <View style={styles.buttonContainer}>
               <View style={styles.circle}>
-                <View style={{flex: 4}}></View>
+                <View style={{flex: 3, flexDirection: 'row', justifyContent: 'space-between'}}>
+                  <TouchableOpacity style={{paddingTop: 20, margin: 20}} onPress={() => this.power()}>
+                    <Icon name='poweroff' size={buttonSize / 1.35} type='antdesign'/> 
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{paddingTop: 15, margin: 20}} onPress={() => this.refresh()}>
+                    <Icon name='refresh' size={buttonSize} type='material'/> 
+                  </TouchableOpacity>
+                </View>
                 <View style={styles.arrowRow}>
                   <TouchableOpacity style={styles.arrow} onPress={() => this.onPress('up')}>
                     <Icon name='upcircle' size={buttonSize} type='antdesign'/> 
@@ -74,6 +81,18 @@ export default class HomeScreen extends React.Component {
         </View>
       </View>
     );
+  }
+
+  power() {
+    console.log('Power');
+    const object = {type: "power", message: null};
+    ws.send(JSON.stringify(object));
+  }
+
+  refresh() {
+    console.log('Refresh');
+    const object = {type: "refresh", message: null};
+    ws.send(JSON.stringify(object));
   }
 
   onPress(direction) {
