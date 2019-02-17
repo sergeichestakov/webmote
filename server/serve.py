@@ -20,6 +20,10 @@ class BrowserSocket(WebSocket):
             browser.refresh()
         elif type == "power":
             browser.power()
+        elif type == "history":
+            browser.history(message) 
+        elif type == "link":
+            browser.link(message) 
 
     def handleConnected(self):
         print(self.address, 'connected')

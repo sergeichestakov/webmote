@@ -11,6 +11,9 @@ class Browser:
         self.browser = webdriver.Firefox()
         self.browser.maximize_window()
         self.populate()
+        self.linkIndex = 0
+        self.prevLinkIndex = None
+        self.prevStyle = None
         self.on = True
 
     def populate(self):
@@ -37,19 +40,54 @@ class Browser:
     def openTab(self):
         self.browser.execute_script("window.open('https://google.com')")
 
-    def forward(self):
-        self.browser.execute_script("window.history.forward();")
+    def history(self, direction):
+        self.resetLinkInfo()
+        if direction in ["forward", "back"]:
+            self.browser.execute_script(f"window.history.{direction}();")
 
-    def back(self):
-        self.browser.execute_script("window.history.back();")
+    def link(self, message):
+        links = self.browser.find_elements_by_tag_name('a')
+        if message == "up":
+            self.linkIndex = (self.linkIndex - 1) if self.linkIndex > 0 else len(links) - 1
+            self.highlightLink(links)
+        elif message == "down":
+            self.linkIndex = (self.linkIndex + 1) % len(links)
+            self.highlightLink(links)
+        elif message == "enter":
+            pass
 
+    def highlightLink(self, links):
+        link = links[self.linkIndex]
+        href = link.get_attribute('href')
+        style = "background: yellow; color: Red; border: 4px"
+
+        if self.prevLinkIndex is not None:
+            prevLink = links[self.prevLinkIndex]
+            self.browser.execute_script("arguments[0].setAttribute('style', arguments[1])", prevLink, self.prevStyle) 
+
+        self.prevStyle = link.get_attribute('style')
+        self.prevLinkIndex = self.linkIndex
+
+        self.browser.execute_script("arguments[0].scrollIntoView(true)", link)
+        self.browser.execute_script("arguments[0].setAttribute('style', arguments[1])", link, style) 
     def openWebsite(self, name):
         self.browser.execute_script(f"window.location.href = https://{name}")
+
+    def resetLinkInfo(self):
+        if self.prevLinkIndex is not None:
+            links = self.browser.find_elements_by_tag_name('a')
+            prevLink = links[self.prevLinkIndex]
+            self.browser.execute_script("arguments[0].setAttribute('style', arguments[1])", prevLink, self.prevStyle) 
+
+        self.linkIndex = 0
+        self.prevLinkIndex = None
+        self.prevStyle = None
 
     def search(self, name):
         self.browser.execute_script(f"window.location.href = 'https://google.com/search?q={name}'")
 
     def refresh(self):
+        self.resetLinkInfo()
         self.browser.refresh()
 
     def power(self):
@@ -69,6 +107,7 @@ class Browser:
             self.scroll(direction)
 
     def switchTabs(self, direction):
+        self.resetLinkInfo()
         tabs = self.browser.window_handles
         currTab = self.browser.current_window_handle
         currIndex = tabs.index(currTab)
