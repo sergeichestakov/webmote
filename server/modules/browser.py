@@ -48,6 +48,7 @@ class Browser:
 
     def link(self, message):
         links = self.links if self.links else self.browser.find_elements_by_tag_name('a')
+        self.links = links
         if message == "up":
             self.linkIndex = (self.linkIndex - 1) if self.linkIndex > 0 else len(links) - 1
             self.highlightLink(links)
@@ -78,11 +79,12 @@ class Browser:
     def openWebsite(self, url):
         self.browser.execute_script(f"window.location.href = 'https://{url}'")
 
-    def resetLinkInfo(self, check=True):
+    def resetLinkInfo(self, check=False):
         if check and self.prevLinkIndex is not None:
             links = self.links
-            prevLink = links[self.prevLinkIndex]
-            self.browser.execute_script("arguments[0].setAttribute('style', arguments[1])", prevLink, self.prevStyle) 
+            if links and self.prevLinkIndex < len(links):
+                prevLink = links[self.prevLinkIndex]
+                self.browser.execute_script("arguments[0].setAttribute('style', arguments[1])", prevLink, self.prevStyle) 
 
         self.linkIndex = 0
         self.prevLinkIndex = None
@@ -113,7 +115,7 @@ class Browser:
             self.scroll(direction)
 
     def switchTabs(self, direction):
-        self.resetLinkInfo()
+        self.resetLinkInfo(True)
         tabs = self.browser.window_handles
         currTab = self.browser.current_window_handle
         currIndex = tabs.index(currTab)
