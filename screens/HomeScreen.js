@@ -5,13 +5,12 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  TouchableHighlight,
+  Keyboard,
   View,
 } from 'react-native';
 import React from 'react';
 import { Icon, SearchBar } from 'react-native-elements';
 import { WebBrowser } from 'expo';
-
 import { MonoText } from '../components/StyledText';
 
 const buttonSize = 50;
@@ -19,6 +18,7 @@ const URL = "ws://10.19.188.100:8000"
 const ws = new WebSocket(URL);
 
 export default class HomeScreen extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -42,11 +42,8 @@ export default class HomeScreen extends React.Component {
               lightTheme
               value={search}
               containerStyle={styles.searchBar}
+              onSubmitEditing={() => this.sendResult(search)}
           />
-          <TouchableOpacity style={styles.searchButton} 
-                onPress={() => this.sendResult(search)}>
-            <Icon name="search" size={30} type='material' />
-          </TouchableOpacity>
         </View>
             <View style={styles.buttonContainer}>
               <View style={styles.circle}>
@@ -119,6 +116,7 @@ export default class HomeScreen extends React.Component {
 
   sendResult(search) {
     this.setState({ search: "" });
+    Keyboard.dismiss();
     this.sendMessage("search", search);
   }
 }
@@ -126,7 +124,7 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex:1,
-    backgroundColor: '#dae2ea',
+    backgroundColor: '#e6e8ed',
   },
   searchBar: {
     flex:8.5
