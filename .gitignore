@@ -2,7 +2,7 @@ node_modules/**/*
 .expo/*
 npm-debug.*
 *.log
-server/modules/__pycache__/
+__pycache__/
 *.jks
 *.p12
 *.key
