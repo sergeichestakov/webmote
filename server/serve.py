@@ -1,5 +1,5 @@
 import json
-from modules.browser import Browser
+from browser import Browser
 from SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 
 browser = Browser()
